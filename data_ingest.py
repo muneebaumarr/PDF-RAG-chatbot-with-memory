@@ -3,20 +3,9 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.documents import Document
 
 # -------------------------
-# HuggingFace Embeddings
-# -------------------------
-def get_embeddings():
-    return HuggingFaceEmbeddings(
-        model_name="all-MiniLM-L6-v2",
-        huggingfacehub_api_token=st.secrets["HF_TOKEN"],
-        model_kwargs={"device": "cpu"}  # Use CPU in Streamlit Cloud
-    )
-
-# -------------------------
-# Load and Split PDF
+# Load & split PDF
 # -------------------------
 def load_and_split_pdf(pdf_path):
     loader = PyPDFLoader(pdf_path)
@@ -29,15 +18,24 @@ def load_and_split_pdf(pdf_path):
     return documents
 
 # -------------------------
-# Ingest PDF and create vector DB
+# Create embeddings safely
+# -------------------------
+def get_embeddings():
+    token = st.secrets.get("HF_TOKEN")
+    if not token:
+        raise ValueError("HF_TOKEN not found in Streamlit secrets!")
+    
+    return HuggingFaceEmbeddings(
+        model_name="all-MiniLM-L6-v2",
+        huggingfacehub_api_token=token,
+        model_kwargs={"device": "cpu"}  # Cloud safe
+    )
+
+# -------------------------
+# Ingest PDF
 # -------------------------
 def ingest_pdf(pdf_path):
     documents = load_and_split_pdf(pdf_path)
-    embeddings = get_embeddings()
+    embeddings = get_embeddings()       # <- call embeddings here
     vectordb = Chroma.from_documents(documents, embedding=embeddings)
     return vectordb
-
-
-
-
-
