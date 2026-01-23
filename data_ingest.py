@@ -19,8 +19,7 @@ def ingest_pdf(pdf_path: str):
     # 3. Embeddings
     embeddings = HuggingFaceEmbeddings(
         model_name="all-MiniLM-L6-v2",
-        model_kwargs={"device": "cpu"},
-        huggingfacehub_api_token=os.environ["token"]
+        huggingfacehub_api_token=st.secrets["HF_TOKEN"]
     )
 
     # 4. Store in vector DB
@@ -32,3 +31,4 @@ def ingest_pdf(pdf_path: str):
 
 
     return vectordb
+
