@@ -14,17 +14,12 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from data_ingest import ingest_pdf
 
 
-
-
 load_dotenv()
 
 
-os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
-os.environ["token"] = os.getenv("token")
-
 llm = ChatGroq(
     model="llama-3.1-8b-instant",
-    groq_api_key = os.getenv("GROK_API_KEY")
+    groq_api_key=st.secrets["GROK_API_KEY"]
 )
 
 # Streamlit UI
@@ -127,3 +122,4 @@ if uploaded_file:
 
         st.chat_message("user").write(user_input)
         st.chat_message("assistant").write(response.content)
+
