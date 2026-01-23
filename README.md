@@ -3,7 +3,7 @@
 An intelligent AI chatbot that allows users to upload PDF documents and ask questions directly from their content using Retrieval-Augmented Generation (RAG).
 
 Bot Link is:
-https://pdf-rag-chatbot-with-memory-efewx2a7lkxhpmdsbmasnf.streamlit.app/
+https://pdf-rag-chatbot-with-memory-giay5awv9sifft7vfpbwaz.streamlit.app/
 
 ---
 
