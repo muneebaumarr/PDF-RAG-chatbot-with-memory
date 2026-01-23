@@ -2,6 +2,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
+import streamlit as st
 
 
 def ingest_pdf(pdf_path: str):
@@ -19,7 +20,8 @@ def ingest_pdf(pdf_path: str):
     # 3. Embeddings
     embeddings = HuggingFaceEmbeddings(
         model_name="all-MiniLM-L6-v2",
-        huggingfacehub_api_token=st.secrets["HF_TOKEN"]
+        huggingfacehub_api_token=st.secrets["HF_TOKEN"],
+        model_kwargs={"device": "cpu"}
     )
 
     # 4. Store in vector DB
@@ -31,4 +33,5 @@ def ingest_pdf(pdf_path: str):
 
 
     return vectordb
+
 
