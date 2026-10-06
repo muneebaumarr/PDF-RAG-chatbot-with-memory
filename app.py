@@ -26,7 +26,7 @@ st.write(
 # Initialize LLM
 # ------------------------
 llm = ChatGroq(
-    model="llama-3.1-8b-instant",
+    model="Llama 3.3 70B",
     groq_api_key=st.secrets["GROK_API_KEY"]
 )
 
@@ -130,3 +130,4 @@ if uploaded_file and chatbot:
 
         st.chat_message("user").write(user_input)
         st.chat_message("assistant").write(response.content)
+
