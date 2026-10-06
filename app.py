@@ -1,4 +1,3 @@
-```python
 import streamlit as st
 import tempfile
 
@@ -386,6 +385,4 @@ else:
     st.info(
         "👆 Upload a PDF to start chatting."
     )
-```
-
 
